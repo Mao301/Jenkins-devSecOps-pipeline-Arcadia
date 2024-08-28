@@ -1,19 +1,30 @@
 import requests
 import json
+import os
 from requests.auth import HTTPBasicAuth
+
 
 # Configuración de la conexión a F5
 
 f5_host = 'https://52.176.220.110:8443//mgmt/shared/authn/login'  # Reemplaza <F5_HOST> con la dirección IP o el nombre de host de tu F5
-username = 'admin'  # Cambia a tus credenciales de F5
-password = 'f5DEMOs4uLATAM'  # Cambia a tus credenciales de F5
+#username = 'admin'  # Cambia a tus credenciales de F5
+#password = 'f5DEMOs4uLATAM'  # Cambia a tus credenciales de F5
+
+username = os.getenv('F5_USERNAME')
+password = os.getenv('F5_PASSWORD')
 
 # Definición del Virtual Server usando AS3
 as3_declaration = {
-    "username":"admin",
-    "password":"f5DEMOs4uLATAM",
+    "username":"",
+    #"username":"admin",
+    "password":"",
+    #"password":"f5DEMOs4uLATAM",
     "loginProviderName":"tmos"
 }
+
+# Reemplazar valores en la declaración AS3
+as3_declaration["username"] = username
+as3_declaration["password"] = password
 
 # Headers para la solicitud
 headers = {
