@@ -61,7 +61,7 @@ as3_declaration = {
 # Headers para la solicitud
 headers = {
     'Content-Type': 'application/json',
-    'X-F5-Auth-Token': auth_token,
+    'X-F5-Auth-Token': auth_token
     #'X-F5-Auth-Token': '',
     #'Authorization': 'Basic ' + requests.auth._basic_auth_str(username, password)
 }
