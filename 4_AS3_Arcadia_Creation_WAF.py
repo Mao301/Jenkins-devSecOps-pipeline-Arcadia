@@ -32,7 +32,15 @@ as3_declaration = {
                         "10.1.10.4"  # Cambia esta dirección IP al Virtual IP de tu F5
                     ],
                     "pool": "pool_arcadia",
-                    "virtualPort": 80
+                    "virtualPort": 80,
+                    "securityLogProfiles": [
+                    	{
+                    		"bigip": "/Common/Log all requests"
+                    	}
+                    ],
+                    "policyWAF": {
+                    	"use": "ArcadiaWAF"
+                    },
                 },
                 "pool_arcadia": {
                     "class": "Pool",
