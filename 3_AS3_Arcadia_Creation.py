@@ -11,8 +11,11 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # Configuración de la conexión a F5
 
 f5_host = 'https://52.176.220.110:8443/mgmt/shared/appsvcs/declare'  # Reemplaza <F5_HOST> con la dirección IP o el nombre de host de tu F5
-username = 'admin'  # Cambia a tus credenciales de F5
-password = 'f5DEMOs4uLATAM'  # Cambia a tus credenciales de F5
+#username = ''  # Cambia a tus credenciales de F5
+#password = ''  # Cambia a tus credenciales de F5
+username = os.getenv('F5_USERNAME') # Se toma como variable de entorno del pipeline de CI/CD
+password = os.getenv('F5_PASSWORD') # Se toma como variable de entorno del pipeline de CI/CD
+
 auth_token = os.getenv('AUTH_TOKEN') # Toma el token de autorización como variable de entorno
 
 # Definición del Virtual Server usando AS3

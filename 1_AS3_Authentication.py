@@ -7,18 +7,16 @@ from requests.auth import HTTPBasicAuth
 # Configuración de la conexión a F5
 
 f5_host = 'https://52.176.220.110:8443//mgmt/shared/authn/login'  # Reemplaza <F5_HOST> con la dirección IP o el nombre de host de tu F5
-#username = 'admin'  # Cambia a tus credenciales de F5
-#password = 'f5DEMOs4uLATAM'  # Cambia a tus credenciales de F5
+#username = ''  # Cambia a tus credenciales de F5
+#password = ''  # Cambia a tus credenciales de F5
 
-username = os.getenv('F5_USERNAME')
-password = os.getenv('F5_PASSWORD')
+username = os.getenv('F5_USERNAME') # Se toma como variable de entorno del pipeline de CI/CD
+password = os.getenv('F5_PASSWORD') # Se toma como variable de entorno del pipeline de CI/CD
 
 # Definición del Virtual Server usando AS3
 as3_declaration = {
     "username":"",
-    #"username":"admin",
     "password":"",
-    #"password":"f5DEMOs4uLATAM",
     "loginProviderName":"tmos"
 }
 

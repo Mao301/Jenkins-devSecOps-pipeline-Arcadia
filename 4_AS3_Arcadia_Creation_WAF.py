@@ -1,13 +1,17 @@
 import requests
 import json
+import os
 from requests.auth import HTTPBasicAuth
 
 # Configuración de la conexión a F5
 
 f5_host = 'https://52.176.220.110:8443/mgmt/shared/appsvcs/declare'  # Reemplaza <F5_HOST> con la dirección IP o el nombre de host de tu F5
-username = 'admin'  # Cambia a tus credenciales de F5
-password = 'f5DEMOs4uLATAM'  # Cambia a tus credenciales de F5
+#username = ''  # Cambia a tus credenciales de F5
+#password = ''  # Cambia a tus credenciales de F5
+username = os.getenv('F5_USERNAME') # Se toma como variable de entorno del pipeline de CI/CD
+password = os.getenv('F5_PASSWORD') # Se toma como variable de entorno del pipeline de CI/CD
 
+auth_token = os.getenv('AUTH_TOKEN') # Toma el token de autorización como variable de entorno
 # Definición del Virtual Server usando AS3
 as3_declaration = {
     "class": "AS3",
@@ -57,7 +61,8 @@ as3_declaration = {
 # Headers para la solicitud
 headers = {
     'Content-Type': 'application/json',
-    'X-F5-Auth-Token': '2WHNQVMRRBEFIZDOIUWJUIZ2Y4',
+    'X-F5-Auth-Token': auth_token,
+    #'X-F5-Auth-Token': '',
     #'Authorization': 'Basic ' + requests.auth._basic_auth_str(username, password)
 }
 
