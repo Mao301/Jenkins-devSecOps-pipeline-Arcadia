@@ -8,10 +8,10 @@
         "remark": "Generic HTTP applications",
         "Produccion_01": {
             "class": "Tenant",
-            "vs_Application_http_80": {
+            "vs_Application_http_8080": {
                 "class": "Application",
                 "template": "generic",
-                "vs_${VirtualServerName}_http_${VirtualPort}": {
+                "vsWAF_${VirtualServerName}_http_${VirtualPort}": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
                         "${VirtualAddress}"
