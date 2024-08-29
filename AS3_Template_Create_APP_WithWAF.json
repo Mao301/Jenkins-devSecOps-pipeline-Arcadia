@@ -1,0 +1,52 @@
+{
+    "class": "AS3",
+    "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.26.0",
+        "id": "${id}",
+        "label": "Evertec",
+        "remark": "Generic HTTP applications",
+        "Produccion_01": {
+            "class": "Tenant",
+            "vs_Application_http_80": {
+                "class": "Application",
+                "template": "generic",
+                "vs_${VirtualServerName}_http_${VirtualPort}": {
+                    "class": "Service_HTTP",
+                    "virtualAddresses": [
+                        "${VirtualAddress}"
+                    ],
+                    "pool": "${PoolName}",
+                    "virtualPort": ${VirtualPort},
+                    "securityLogProfiles": [
+                        {
+                            "bigip": "/Common/Log all requests"
+                        }
+                    ],
+                    "policyWAF": {
+                        "use": "ArcadiaWAF"
+                    }
+                },
+                "${PoolName}": {
+                    "class": "Pool",
+                    "monitors": [
+                        "http"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": ${VirtualPort},
+                            "serverAddresses": [
+                                "10.1.10.5"
+                            ]
+                        }
+                    ]
+                },
+                "ArcadiaWAF": {
+                    "class": "WAF_Policy",
+                    "url": "https://raw.githubusercontent.com/cavalen/acme/master/declarative-waf.json",
+                    "ignoreChanges": True
+                }
+            }
+        }
+    }
+}

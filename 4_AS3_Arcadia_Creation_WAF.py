@@ -1,77 +1,34 @@
+
 import requests
 import json
 import os
-from requests.auth import HTTPBasicAuth
 
 # Configuración de la conexión a F5
+f5_host = 'https://52.176.220.110:8443/mgmt/shared/appsvcs/declare'
+username = os.getenv('F5_USERNAME')
+password = os.getenv('F5_PASSWORD')
+auth_token = os.getenv('AUTH_TOKEN')
 
-f5_host = 'https://52.176.220.110:8443/mgmt/shared/appsvcs/declare'  # Reemplaza <F5_HOST> con la dirección IP o el nombre de host de tu F5
-#username = ''  # Cambia a tus credenciales de F5
-#password = ''  # Cambia a tus credenciales de F5
-username = os.getenv('F5_USERNAME') # Se toma como variable de entorno del pipeline de CI/CD
-password = os.getenv('F5_PASSWORD') # Se toma como variable de entorno del pipeline de CI/CD
+# Cargar el template de AS3 desde el repositorio
+with open('as3_template.json', 'r') as template_file:
+    as3_template = template_file.read()
 
-auth_token = os.getenv('AUTH_TOKEN') # Toma el token de autorización como variable de entorno
-# Definición del Virtual Server usando AS3
-as3_declaration = {
-    "class": "AS3",
-    "declaration": {
-        "class": "ADC",
-        "schemaVersion": "3.26.0",
-        "id": "example-declaration",
-        "label": "Evertec",
-        "remark": "Generic HTTP applications",
-        "Produccion_01": {
-            "class": "Tenant",
-            "vs_Application_http_80": {
-                "class": "Application",
-                "template": "generic",
-                "vs_arcadia_http_80": {
-                    "class": "Service_HTTP",
-                    "virtualAddresses": [
-                        "10.1.10.4"  # Cambia esta dirección IP al Virtual IP de tu F5
-                    ],
-                    "pool": "pool_arcadia",
-                    "virtualPort": 80,
-                    "securityLogProfiles": [
-                    	{
-                    		"bigip": "/Common/Log all requests"
-                    	}
-                    ],
-                    "policyWAF": {
-                    	"use": "ArcadiaWAF"
-                    },
-                },
-                "pool_arcadia": {
-                    "class": "Pool",
-                    "monitors": [
-                        "http"
-                    ],
-                    "members": [
-                        {
-                            "servicePort": 80,
-                            "serverAddresses": [
-                                "10.1.10.5"  # Cambia esta dirección IP a la de tu servidor backend
-                            ]
-                        }
-                    ]
-                },
-                "ArcadiaWAF": {
-                    "class": "WAF_Policy",
-                    "url": "https://raw.githubusercontent.com/cavalen/acme/master/declarative-waf.json",
-                    "ignoreChanges": True
-                }
-            }
-        }
-    }
-}
+# Cargar los parámetros desde el archivo
+with open('as3_params.json', 'r') as params_file:
+    params = json.load(params_file)
+
+# Realizar la sustitución de variables en el template
+as3_declaration = as3_template
+for key, value in params.items():
+    as3_declaration = as3_declaration.replace('${' + key + '}', str(value))
+
+# Convertir la declaración a un diccionario Python
+as3_declaration = json.loads(as3_declaration)
 
 # Headers para la solicitud
 headers = {
     'Content-Type': 'application/json',
     'X-F5-Auth-Token': auth_token
-    #'X-F5-Auth-Token': '',
-    #'Authorization': 'Basic ' + requests.auth._basic_auth_str(username, password)
 }
 
 # Realizar la solicitud POST a la API de AS3

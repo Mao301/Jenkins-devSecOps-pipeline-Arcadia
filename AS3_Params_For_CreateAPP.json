@@ -1,0 +1,7 @@
+{
+    "id": "example-declaration",
+    "VirtualServerName": "arcadia",
+    "VirtualPort": 80,
+    "VirtualAddress": "10.1.10.4",
+    "PoolName": "pool_arcadia"
+}
