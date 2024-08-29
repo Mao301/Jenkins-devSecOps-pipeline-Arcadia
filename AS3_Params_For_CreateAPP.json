@@ -3,5 +3,7 @@
     "VirtualServerName": "arcadia",
     "VirtualPort": 80,
     "VirtualAddress": "10.1.10.4",
-    "PoolName": "pool_arcadia"
+    "PoolName": "pool_arcadia",
+    "NombrePoliticaWAF": "arcadia_WAF",
+    "UrlWAF": "https://raw.githubusercontent.com/cavalen/acme/master/declarative-waf.json"
 }

@@ -4,7 +4,7 @@
         "class": "ADC",
         "schemaVersion": "3.26.0",
         "id": "${id}",
-        "label": "Evertec",
+        "label": "DemoCI/CD",
         "remark": "Generic HTTP applications",
         "Produccion_01": {
             "class": "Tenant",
@@ -24,7 +24,7 @@
                         }
                     ],
                     "policyWAF": {
-                        "use": "ArcadiaWAF"
+                        "use": "${NombrePoliticaWAF}"
                     }
                 },
                 "${PoolName}": {
@@ -41,9 +41,9 @@
                         }
                     ]
                 },
-                "ArcadiaWAF": {
+                "${NombrePoliticaWAF}": {
                     "class": "WAF_Policy",
-                    "url": "https://raw.githubusercontent.com/cavalen/acme/master/declarative-waf.json",
+                    "url": "${UrlWAF}",
                     "ignoreChanges": true
                 }
             }
