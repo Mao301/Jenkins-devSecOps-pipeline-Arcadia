@@ -10,11 +10,11 @@ password = os.getenv('F5_PASSWORD')
 auth_token = os.getenv('AUTH_TOKEN')
 
 # Cargar el template de AS3 desde el repositorio
-with open('as3_template.json', 'r') as template_file:
+with open('AS3_Template_Create_APP_WithWAF.json', 'r') as template_file:
     as3_template = template_file.read()
 
 # Cargar los parámetros desde el archivo
-with open('as3_params.json', 'r') as params_file:
+with open('AS3_Params_For_CreateAPP.json', 'r') as params_file:
     params = json.load(params_file)
 
 # Realizar la sustitución de variables en el template
