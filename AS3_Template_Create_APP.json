@@ -14,18 +14,10 @@
                 "vs_${VirtualServerName}_http_${VirtualPort}": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
-                        "${VirtualAddress}"
+                        "${VirtualAddress}"  
                     ],
                     "pool": "${PoolName}",
-                    "virtualPort": 80,
-                    "securityLogProfiles": [
-                        {
-                            "bigip": "/Common/Log all requests"
-                        }
-                    ],
-                    "policyWAF": {
-                        "use": "${NombrePoliticaWAF}"
-                    }
+                    "virtualPort": 80
                 },
                 "${PoolName}": {
                     "class": "Pool",
@@ -36,15 +28,10 @@
                         {
                             "servicePort": 80,
                             "serverAddresses": [
-                                "10.1.10.5"
+                                "10.1.10.5"  
                             ]
                         }
                     ]
-                },
-                "${NombrePoliticaWAF}": {
-                    "class": "WAF_Policy",
-                    "url": "${UrlWAF}",
-                    "ignoreChanges": true
                 }
             }
         }

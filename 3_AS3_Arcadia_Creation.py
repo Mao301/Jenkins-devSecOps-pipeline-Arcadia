@@ -18,46 +18,22 @@ password = os.getenv('F5_PASSWORD') # Se toma como variable de entorno del pipel
 
 auth_token = os.getenv('AUTH_TOKEN') # Toma el token de autorización como variable de entorno
 
-# Definición del Virtual Server usando AS3
-as3_declaration = {
-    "class": "AS3",
-    "declaration": {
-        "class": "ADC",
-        "schemaVersion": "3.26.0",
-        "id": "example-declaration",
-        "label": "Evertec",
-        "remark": "Generic HTTP applications",
-        "Produccion_01": {
-            "class": "Tenant",
-            "vs_Application_http_80": {
-                "class": "Application",
-                "template": "generic",
-                "vs_arcadia_http_80": {
-                    "class": "Service_HTTP",
-                    "virtualAddresses": [
-                        "10.1.10.4"  # Cambia esta dirección IP al Virtual IP de tu F5
-                    ],
-                    "pool": "pool_arcadia",
-                    "virtualPort": 80
-                },
-                "pool_arcadia": {
-                    "class": "Pool",
-                    "monitors": [
-                        "http"
-                    ],
-                    "members": [
-                        {
-                            "servicePort": 80,
-                            "serverAddresses": [
-                                "10.1.10.5"  # Cambia esta dirección IP a la de tu servidor backend
-                            ]
-                        }
-                    ]
-                }
-            }
-        }
-    }
-}
+# Cargar el template de AS3 desde el repositorio
+with open('AS3_Template_Create_APP.json', 'r') as template_file:
+    as3_template = template_file.read()
+
+# Cargar los parámetros desde el archivo
+with open('AS3_Params_For_CreateAPP.json', 'r') as params_file:
+    params = json.load(params_file)
+
+# Realizar la sustitución de variables en el template
+as3_declaration = as3_template
+for key, value in params.items():
+    as3_declaration = as3_declaration.replace('${' + key + '}', str(value))
+
+# Convertir la declaración a un diccionario Python
+as3_declaration = json.loads(as3_declaration)
+
 
 # Headers para la solicitud
 headers = {
