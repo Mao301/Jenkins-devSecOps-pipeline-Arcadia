@@ -17,7 +17,7 @@
                         "${VirtualAddress}"
                     ],
                     "pool": "${PoolName}",
-                    "virtualPort": 80,
+                    "virtualPort": 8080,
                     "securityLogProfiles": [
                         {
                             "bigip": "/Common/Log all requests"
