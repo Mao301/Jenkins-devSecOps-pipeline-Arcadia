@@ -14,7 +14,7 @@
                 "vsWAF_${VirtualServerName}_http_${VirtualPort}": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
-                        "${VirtualAddress}"
+                        "10.1.10.6"
                     ],
                     "pool": "${PoolName}",
                     "virtualPort": 8080,
