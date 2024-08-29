@@ -44,7 +44,7 @@
                 "ArcadiaWAF": {
                     "class": "WAF_Policy",
                     "url": "https://raw.githubusercontent.com/cavalen/acme/master/declarative-waf.json",
-                    "ignoreChanges": True
+                    "ignoreChanges": true
                 }
             }
         }
