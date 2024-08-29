@@ -30,7 +30,11 @@ as3_declaration = {
         },
         "Produccion_01": {
             "class": "Tenant"
+        },
+        "Produccion_02": {
+            "class": "Tenant"
         }
+        
     }
 }
 
