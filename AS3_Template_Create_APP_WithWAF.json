@@ -6,7 +6,7 @@
         "id": "${id}",
         "label": "DemoCI/CD",
         "remark": "Generic HTTP applications",
-        "Produccion_01": {
+        "Produccion_02": {
             "class": "Tenant",
             "vs_Application_http_8080": {
                 "class": "Application",
